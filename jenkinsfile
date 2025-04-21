@@ -1,5 +1,5 @@
 pipeline{
-    agent any
+    agent { label 'my-host-machine' }
 
     environment {
         IMAGE_NAME="jenkin-first-image"
