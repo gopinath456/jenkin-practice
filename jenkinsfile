@@ -2,7 +2,7 @@ pipeline{
     agent { label 'my-host-machine' }
 
     environment {
-        IMAGE_NAME="jenkin-first-image"
+        IMAGE_NAME="jenkin-first-image2"
     }
 
     stages {
