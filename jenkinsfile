@@ -1,0 +1,55 @@
+pipeline{
+    agent any
+
+    environment {
+        IMAGE_NAME="jenkin-first-image"
+    }
+
+    stages {
+
+        stage('clone repository') {
+
+            steps {
+
+                git 'https://github.com/gopinath456/jenkin-practice'
+
+            }
+
+        }
+
+        stage('build image'){
+
+            steps{
+                sh 'docker build -t $IMAGE_NAME .'
+            }
+            
+        }
+
+        stage('push image'){
+
+            steps{
+
+                sh ''' 
+                  docker tag $IMAGE_NAME gopinath4648/$IMAGE_NAME:first
+                  docker push gopinath4648/$IMAGE_NAME:first             
+                '''
+            }
+        }
+
+        stage('run container'){
+
+            steps{
+
+                sh '''
+                  kubectl apply -f k8s/deployment-v2.yaml
+                  kubectl apply -f k8s/service-v2.yaml
+                '''
+            }
+
+        }
+            
+    }
+
+
+
+}
